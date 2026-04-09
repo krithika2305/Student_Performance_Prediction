@@ -10,7 +10,6 @@ venv/
 dist/
 build/
 .DS_Store
-*.pkl
 *.joblib
 .pytest_cache/
 .coverage
