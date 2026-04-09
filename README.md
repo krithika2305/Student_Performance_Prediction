@@ -278,9 +278,6 @@ The application provides specific recommendations based on predicted performance
 
 Feel free to fork, modify, and improve this project!
 
-## License
-
-This project is open for educational and research purposes.
 
 ## Author
 
