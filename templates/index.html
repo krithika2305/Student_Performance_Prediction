@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="form-wrapper">
+            <h1>Student Performance Prediction</h1>
+            <p class="subtitle">Enter your details to predict your academic performance</p>
+            
+            <form method="POST" action="/predict" class="prediction-form">
+                
+                <div class="form-section">
+                    <h3>Personal Information</h3>
+                    <div class="form-group">
+                        <label for="age">Age:</label>
+                        <input type="number" id="age" name="age" min="16" max="40" value="20" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender:</label>
+                        <select id="gender" name="gender" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Academic Details</h3>
+                    <div class="form-group">
+                        <label for="semester">Current Semester:</label>
+                        <input type="number" id="semester" name="semester" min="1" max="8" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="attendance">Attendance (%):</label>
+                        <input type="number" id="attendance" name="attendance" min="0" max="100" value="75" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="internal_marks">Internal Marks (out of 20):</label>
+                        <input type="number" id="internal_marks" name="internal_marks" min="0" max="20" value="15" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cgpa">CGPA (out of 10):</label>
+                        <input type="number" id="cgpa" name="cgpa" min="0" max="10" step="0.1" value="7.0" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Learning & Study Habits</h3>
+                    <div class="form-group">
+                        <label for="study_hours">Study Hours Per Day:</label>
+                        <input type="number" id="study_hours" name="study_hours" min="0" max="12" value="3" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="assignment_completion">Assignment Completion:</label>
+                        <select id="assignment_completion" name="assignment_completion" required>
+                            <option value="All">All</option>
+                            <option value="Most">Most</option>
+                            <option value="Very few">Very few</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="participation">Lab/Seminar Participation:</label>
+                        <select id="participation" name="participation" required>
+                            <option value="Never">Never</option>
+                            <option value="Sometimes">Sometimes</option>
+                            <option value="Often">Often</option>
+                            <option value="Always">Always</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="doubt_method">How Do You Ask Doubts?</label>
+                        <select id="doubt_method" name="doubt_method" required>
+                            <option value="Very frequently">Very frequently</option>
+                            <option value="Frequently">Frequently</option>
+                            <option value="Sometimes">Sometimes</option>
+                            <option value="Never">Never</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Support & Lifestyle</h3>
+                    <div class="form-group">
+                        <label for="teacher_help">Do You Take Help From Teachers/Classmates?</label>
+                        <select id="teacher_help" name="teacher_help" required>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                            <option value="Sometimes">Sometimes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sleep_hours">Sleep Hours Per Day:</label>
+                        <input type="number" id="sleep_hours" name="sleep_hours" min="0" max="12" value="6" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile_usage">Mobile/Social Media Hours Per Day:</label>
+                        <input type="number" id="mobile_usage" name="mobile_usage" min="0" max="12" value="2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="travel_time">Travel Time (hours per day):</label>
+                        <input type="number" id="travel_time" name="travel_time" min="0" max="8" step="0.5" value="1" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Mental & Emotional Health</h3>
+                    <div class="form-group">
+                        <label for="motivation_level">Motivation Level:</label>
+                        <select id="motivation_level" name="motivation_level" required>
+                            <option value="1">1 - Very Low</option>
+                            <option value="2">2 - Low</option>
+                            <option value="3">3 - Neutral</option>
+                            <option value="4">4 - High</option>
+                            <option value="5">5 - Very High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="stress_level">Stress Level:</label>
+                        <select id="stress_level" name="stress_level" required>
+                            <option value="1">1 - Very Low</option>
+                            <option value="2">2 - Low</option>
+                            <option value="3">3 - Moderate</option>
+                            <option value="4">4 - High</option>
+                            <option value="5">5 - Very High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="confidence_level">Confidence Level:</label>
+                        <select id="confidence_level" name="confidence_level" required>
+                            <option value="1">1 - Very Low</option>
+                            <option value="2">2 - Low</option>
+                            <option value="3">3 - Neutral</option>
+                            <option value="4">4 - High</option>
+                            <option value="5">5 - Very High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="extracurricular">Extracurricular Activities:</label>
+                        <select id="extracurricular" name="extracurricular" required>
+                            <option value="Never">Never</option>
+                            <option value="Rarely">Rarely</option>
+                            <option value="Sometimes">Sometimes</option>
+                            <option value="Often">Often</option>
+                            <option value="Always">Always</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Predict Performance</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

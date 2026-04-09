@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="result-wrapper">
+            {% if error %}
+                <div class="error-box">
+                    <h2>⚠️ Error During Prediction</h2>
+                    <div class="error-message">
+                        <p><strong>Error Details:</strong></p>
+                        <p>{{ error }}</p>
+                    </div>
+                    <div class="error-solutions">
+                        <p><strong>💡 To fix this:</strong></p>
+                        <ol>
+                            <li>Make sure you've run your Jupyter notebook completely</li>
+                            <li>Verify all model files exist in the <code>model/</code> folder:
+                                <ul>
+                                    <li>model.pkl</li>
+                                    <li>scaler.pkl</li>
+                                    <li>label_encoder.pkl</li>
+                                    <li>feature_columns.pkl</li>
+                                </ul>
+                            </li>
+                            <li>Run diagnostic: <code>python check_model.py</code></li>
+                            <li>Restart the Flask app</li>
+                        </ol>
+                    </div>
+                    <a href="/" class="btn btn-primary">← Go Back</a>
+                </div>
+            {% elif prediction %}
+                <div class="result-box">
+                    <h1>✓ Prediction Result</h1>
+                    
+                    <div class="prediction-card performance-{{ prediction.lower().replace(' ', '-') }}">
+                        <h2>Your Predicted Performance Level</h2>
+                        <div class="prediction-value">{{ prediction }}</div>
+                        <div class="confidence">Confidence: {{ confidence }}</div>
+                    </div>
+
+                    <div class="student-summary">
+                        <h3>📋 Your Submitted Information</h3>
+                        <div class="summary-grid">
+                            {% if student_data.age %}
+                            <div class="summary-item">
+                                <span class="label">Age:</span>
+                                <span class="value">{{ student_data.age }}</span>
+                            </div>
+                            {% endif %}
+                            {% if student_data.attendance %}
+                            <div class="summary-item">
+                                <span class="label">Attendance:</span>
+                                <span class="value">{{ student_data.attendance }}%</span>
+                            </div>
+                            {% endif %}
+                            {% if student_data.internal_marks %}
+                            <div class="summary-item">
+                                <span class="label">Internal Marks:</span>
+                                <span class="value">{{ student_data.internal_marks }}/20</span>
+                            </div>
+                            {% endif %}
+                            {% if student_data.cgpa %}
+                            <div class="summary-item">
+                                <span class="label">CGPA:</span>
+                                <span class="value">{{ student_data.cgpa }}</span>
+                            </div>
+                            {% endif %}
+                            {% if student_data.study_hours %}
+                            <div class="summary-item">
+                                <span class="label">Study Hours/Day:</span>
+                                <span class="value">{{ student_data.study_hours }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="recommendations">
+                        <h3>💡 Recommendations</h3>
+                        {% if prediction == 'Poor' %}
+                        <ul>
+                            <li>Increase your study hours to at least 4-5 hours per day</li>
+                            <li>Improve your attendance - aim for 85% or higher</li>
+                            <li>Seek help from teachers or classmates for difficult topics</li>
+                            <li>Reduce mobile/social media usage</li>
+                            <li>Get adequate sleep (7-8 hours per night)</li>
+                        </ul>
+                        {% elif prediction == 'Average' %}
+                        <ul>
+                            <li>Increase study hours by 1-2 hours per day</li>
+                            <li>Improve assignment completion rate</li>
+                            <li>Participate more actively in classes and labs</li>
+                            <li>Maintain consistent attendance (85%+)</li>
+                            <li>Work on building confidence in your studies</li>
+                        </ul>
+                        {% elif prediction == 'Good' %}
+                        <ul>
+                            <li>Maintain your current study routine</li>
+                            <li>Look into advanced topics and research areas</li>
+                            <li>Consider tutoring peers to reinforce your knowledge</li>
+                            <li>Balance academics with extracurricular activities</li>
+                            <li>Continue managing stress effectively</li>
+                        </ul>
+                        {% else %}
+                        <ul>
+                            <li>Excellent work! Continue with your current study habits</li>
+                            <li>Share your knowledge with peers and help others</li>
+                            <li>Explore advanced topics and projects</li>
+                            <li>Consider research or internship opportunities</li>
+                            <li>Maintain your work-life balance</li>
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <h2>No Result Yet</h2>
+                    <p>Please fill out the form and click "Predict Performance" to see your results.</p>
+                </div>
+            {% endif %}
+
+            <div class="action-buttons">
+                <a href="/" class="btn btn-primary">← Make Another Prediction</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
